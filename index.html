@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sport vs Politics Document Classifier</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1f2937;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            margin-top: 25px;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #111827;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            background: #111827;
+            color: #f9fafb;
+            padding: 20px;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sport vs Politics Document Classifier</h1>
+    <p>Machine Learning Text Classification Project</p>
+</header>
+
+<div class="container">
+
+    <h2>Introduction</h2>
+    <p>
+        This project explores the design of a simple text document classifier that categorizes
+        text snippets as either <strong>Sport</strong> or <strong>Politics</strong>.
+        The goal was to experiment with multiple ML models and compare their performance.
+    </p>
+
+    <h2>Data Collection</h2>
+    <ul>
+        <li>Scraped news articles using <code>newspaper3k</code> and <code>BeautifulSoup</code></li>
+        <li>Collected ~150 sports and ~160 politics articles</li>
+        <li>Manual labeling and cleaning</li>
+        <li>Lowercasing, URL removal, tokenization</li>
+        <li>Stopword removal using NLTK</li>
+    </ul>
+
+    <p><strong>Final Dataset:</strong></p>
+    <ul>
+        <li>Sports: 147</li>
+        <li>Politics: 152</li>
+    </ul>
+
+    <h2>Dataset Analysis</h2>
+    <ul>
+        <li>Average words per doc: Sports ~220 | Politics ~290</li>
+        <li>Balanced class distribution (~3% difference)</li>
+        <li>Vocabulary overlap observed (e.g., "lead", "party", "win")</li>
+    </ul>
+
+    <h2>Feature Representation</h2>
+    <ul>
+        <li><strong>Bag of Words (BOW)</strong></li>
+        <li><strong>TF-IDF</strong></li>
+        <li><strong>Unigrams + Bigrams (n-grams)</strong></li>
+    </ul>
+
+    <h2>Machine Learning Models</h2>
+
+    <h3>1. Multinomial Naive Bayes</h3>
+    <p>Fast, simple, classic text classifier.</p>
+
+    <h3>2. Logistic Regression</h3>
+    <p>Best performing model overall with TF-IDF + bigrams.</p>
+
+    <h3>3. Linear SVM</h3>
+    <p>Strong performance on sparse high-dimensional data.</p>
+
+    <h2>Experimental Setup</h2>
+    <ul>
+        <li>70% Training / 30% Testing</li>
+        <li>Multiple shuffled runs</li>
+        <li>Metrics: Accuracy, Precision, Recall, F1 Score</li>
+    </ul>
+
+    <h2>Results</h2>
+
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1 Score</th>
+        </tr>
+        <tr>
+            <td>Naive Bayes</td>
+            <td>0.82</td>
+            <td>0.83</td>
+            <td>0.80</td>
+            <td>0.81</td>
+        </tr>
+        <tr>
+            <td>Logistic Regression</td>
+            <td>0.88</td>
+            <td>0.89</td>
+            <td>0.87</td>
+            <td>0.88</td>
+        </tr>
+        <tr>
+            <td>Linear SVM</td>
+            <td>0.87</td>
+            <td>0.88</td>
+            <td>0.86</td>
+            <td>0.87</td>
+        </tr>
+    </table>
+
+    <p>
+        Logistic Regression performed best overall. TF-IDF + bigrams consistently improved performance.
+    </p>
+
+    <h2>Limitations</h2>
+    <ul>
+        <li>Small dataset size (~300 documents total)</li>
+        <li>Vocabulary overlap between classes</li>
+        <li>No stemming/lemmatization</li>
+        <li>No deep learning models used</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+        Logistic Regression achieved the highest performance,
+        closely followed by SVM. Naive Bayes performed reasonably
+        well given its simplicity. For real-world deployment,
+        significantly more data and advanced techniques would be required.
+    </p>
+
+    <h2>Code Repository</h2>
+    <p>
+        GitHub Repository:
+        <a href="https://github.com/Xclusive-Ishan/sport-vs-politics-classifier" target="_blank">
+            View Project Code
+        </a>
+    </p>
+
+    <h2>Example Code Snippet</h2>
+
+    <pre>
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+
+X = tfidf.fit_transform(my_docs)
+clf = LogisticRegression().fit(X, labels)
+
+print("Accuracy:", clf.score(X_test, y_test))
+    </pre>
+
+</div>
+
+<footer>
+    Report by: Ishan Shah (Xclusive-Ishan) | February 2026
+</footer>
+
+</body>
+</html>
